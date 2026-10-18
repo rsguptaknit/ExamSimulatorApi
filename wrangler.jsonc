@@ -1,0 +1,17 @@
+{
+  // Validate this file against Wrangler's installed configuration schema.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Use a development-specific name so the M1 Worker is not mistaken for production.
+  "name": "exam-simulator-api-dev",
+  // Tell Wrangler which module exports the Worker fetch handler.
+  "main": "src/index.ts",
+  // Pin the Worker runtime behavior to the selected compatibility date.
+  "compatibility_date": "2026-10-17",
+  // Enable a workers.dev address for development deployments when explicitly deployed.
+  "workers_dev": true,
+  // Enable Cloudflare observability for platform-level Worker diagnostics.
+  "observability": {
+    // Keep observability enabled without defining a production environment here.
+    "enabled": true
+  }
+}

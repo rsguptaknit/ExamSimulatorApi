@@ -1,0 +1,9 @@
+node_modules/
+.wrangler/
+dist/
+coverage/
+.dev.vars
+publish.env
+.env
+.env.*
+!.env.example

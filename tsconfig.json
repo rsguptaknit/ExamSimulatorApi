@@ -1,0 +1,27 @@
+{
+  // Configure strict TypeScript checking for Worker, tests, and the shared contract.
+  "compilerOptions": {
+    // Target a modern JavaScript runtime supported by Cloudflare Workers.
+    "target": "ES2022",
+    // Include ECMAScript and Worker globals without adding browser-only DOM APIs.
+    "lib": ["ES2022", "WebWorker"],
+    // Preserve ES modules so Wrangler can bundle the Worker entry point.
+    "module": "ESNext",
+    // Resolve package exports using the modern bundler resolution rules.
+    "moduleResolution": "Bundler",
+    // Enable strict checks to catch missing types and unsafe assumptions early.
+    "strict": true,
+    // Typecheck only; Wrangler is responsible for producing the deployment bundle.
+    "noEmit": true,
+    // Trust library declaration files rather than checking all dependency internals.
+    "skipLibCheck": true,
+    // Provide Cloudflare Worker globals and Vitest's global test declarations.
+    "types": ["@cloudflare/workers-types", "vitest/globals"],
+    // Permit .ts import suffixes used by the Worker and tests.
+    "allowImportingTsExtensions": true,
+    // Require explicit type-only imports where a symbol is used only as a type.
+    "verbatimModuleSyntax": true
+  },
+  // Include application code, shared contracts, tests, and the Vitest config in checks.
+  "include": ["src/**/*.ts", "shared/**/*.ts", "test/**/*.ts", "vitest.config.ts"]
+}

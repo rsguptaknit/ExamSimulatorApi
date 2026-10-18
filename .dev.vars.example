@@ -1,0 +1,1 @@
+# M1 uses no secrets. Keep actual local secret values in .dev.vars only when a later milestone requires them.

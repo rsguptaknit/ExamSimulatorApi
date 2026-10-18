@@ -1,0 +1,35 @@
+# Base URL for Wrangler's local development server.
+@baseUrl = http://127.0.0.1:8787
+# App version and platform headers required by all non-health routes.
+@appVersion = 0.1.0
+@platform = android
+
+### Health is public and does not depend on D1
+# No app headers or authorization are needed for this liveness check.
+GET {{baseUrl}}/api/health
+
+### M1 authorize stub (does not authenticate students or issue a real lease)
+# This route validates the request shape but always returns the fixed M1 stub.
+POST {{baseUrl}}/api/v1/authorize
+# Tell the Worker the body is JSON so the request passes its media-type check.
+Content-Type: application/json
+# Identify the client build and platform as required by the API.
+X-App-Version: {{appVersion}}
+X-Platform: {{platform}}
+
+# The body has only the required contract fields: email, deviceId, and devicePublicKey.
+# The values below are placeholders because M1 does not look up students or use device keys.
+{
+  "email": "student@example.com",
+  "deviceId": "device-1",
+  "devicePublicKey": "base64-p256-public-key-placeholder"
+}
+
+### M1 content-version stub (bearer presence only; no lease verification)
+# Use a temporary local placeholder; it is not a credential and must not be used in production.
+GET {{baseUrl}}/api/v1/content/version?examCode=DEMO&mode=exam
+# M1 checks only that a non-empty Bearer value is present.
+Authorization: Bearer m1-placeholder
+# The protected business route still requires app identification headers.
+X-App-Version: {{appVersion}}
+X-Platform: {{platform}}
